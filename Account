@@ -1,0 +1,95 @@
+package ie.lyit.bank;
+import java.io.Serializable;
+
+public abstract class Account implements Serializable{
+	protected Name name;		
+	protected String address;	
+	protected double balance;
+	protected Date dateOpened;	
+	protected int accountNo;
+	
+	private static int nextUniqueNumber=1;	// Next available unique Account number	
+	
+	// Default Constructor - set Instance Variables to null
+	public Account(){
+		name = new Name();      
+		address= new String();	// OR address = ""; OR address = null;
+		balance = 0.0;		
+		dateOpened = new Date();
+		// Set accountNo to static nextUniqueNumber & increment it for next accountNo
+		accountNo = nextUniqueNumber++;	
+	}
+
+	// Initialisation Constructor
+	public Account(String t, String fN, String sn, String address, double balance,
+			       int initDay, int initMonth, int initYear){
+		this.name = new Name(t,fN,sn);
+		this.address = address;
+		this.balance = balance;
+		this.dateOpened = new Date(initDay, initMonth, initYear);
+
+		// Set accountNo to static nextUniqueNumber & increment it for next accountNo
+		accountNo = nextUniqueNumber++;	
+	}
+	
+	// toString() method for displaying a Account object
+ 	@Override
+	public String toString(){
+ 		return("ACCOUNT:"+ accountNo + "==>" + name + "," + address + ".\t" + balance );
+  	}	
+
+ 	
+	// equals() method for comparison of two Account objects
+ 	@Override
+ 	public boolean equals(Object o){
+		if(o == null) 
+           return false;
+	
+		if (this == o)
+			return true;
+
+		if(!(o instanceof Account))
+			return false;
+		else
+		{
+		    // If none of the above are true, cast o to a Account object so that
+            // we can compare the object's instance variables and methods
+			Account other = (Account)o;
+			
+			return (this.accountNo == other.accountNo);
+		}
+	}	
+	
+	// get() and set() methods for each Instance Variable
+	public Name getName(){
+		return name;
+	}
+	public void setName(Name name){
+		this.name=name;
+	}
+
+	public String getAddress(){
+		return address;
+	}
+	public void setAddress(String address){
+		this.address = address;
+	}
+
+	public double getBalance(){
+		return balance;
+	}
+	public void setBalance(double balance){
+		this.balance = balance;
+	}
+
+	public Date getDateOpened(){
+		return dateOpened;
+	}
+	public void setDateOpened(Date dateOpened){
+		this.dateOpened = dateOpened;
+	}
+
+	public int getAccountNo(){
+		return accountNo;
+	}
+}
