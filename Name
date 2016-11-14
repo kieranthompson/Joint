@@ -1,0 +1,63 @@
+package ie.lyit.bank;
+
+public class Name {
+	// Instance Variables
+	protected String title;
+	protected String firstName;	
+	protected String surname;		
+	
+
+	public Name(){
+	   title=firstName=surname=null;
+	}
+
+
+	public Name(String t, String fN, String sn){
+		title=t;
+		firstName=fN;
+		surname=sn;
+	}
+
+	// toString() method
+	public String toString(){
+	   return title + " " + firstName + " " + surname;
+	}
+	
+	// equals() method
+	public boolean equals(Name n){
+	   return( firstName.equals(n.firstName) &&
+              surname.equals(n.surname));
+	}
+
+	// get methods
+	public String getTitle(){
+	   return title;
+	}
+	public String getFirstName(){
+	   return firstName;
+	}
+	public String getSurname(){
+	   return surname;
+	}
+
+	// set methods
+	public void setTitle(String setTitleTo){
+	   title=setTitleTo;
+	}
+	public void setFirstName(String setFirstNameTo){
+	   firstName=setFirstNameTo;
+	}
+	public void setSurname(String setSurnameTo){
+	   surname=setSurnameTo;
+	}
+	
+	//To check if the person is female
+	public boolean isFemale(){
+		if(title.equalsIgnoreCase("Miss") || 
+		   title.equalsIgnoreCase("Ms") || 
+		   title.equalsIgnoreCase("Mrs")) 
+		    return true;
+		else
+		    return false;
+	}	
+}
