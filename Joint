@@ -1,0 +1,64 @@
+package ie.lyit.bank;
+import java.io.Serializable;
+import java.util.Scanner;
+
+public class Joint extends Account implements Serializable {
+	protected Name nameB;	// COMPOSITION - nameB is an object of class Name
+
+  	// Default Constructor for Joint objects
+ 	// - Java will automatically call Account() constructor
+	public Joint(){
+		// super(); // Can call super() but it will do it automatically
+		nameB = new Name();
+	}
+	
+  	// Initialisation Constructor for Joint objects
+	// Provides a nameA, nameB, address, balance, date of opening & overdraft amount for Joint Account
+	// Called as follows:
+	// Joint j1 = new Joint("Mr","Joe","Bloggs","Mrs","Ann","Bloggs",
+	//                      "123 High Road",1000.00,12,6,2012);
+	public Joint(String t1, String fN1, String sn1,  
+				 String t2, String fN2, String sn2,     
+				 String address, double balance, 
+	             int day, int month, int year){
+		super(t1, fN1, sn1, address, balance, day, month, year);		
+     	nameB = new Name(t2,fN2,sn2);
+   }
+
+	// toString() method for displaying a Joint object
+	// Display Joint object as 
+	//         "ACCOUNT==>100001:Mr Joe Bloggs & Mrs Ann Bloggs,123 High Road,Letterkenny.	€100.00" 
+	@Override
+	public String toString(){
+ 		return("ACCOUNT==>"+ super.getAccountNo() + ":" + super.name + " & " + nameB + "," + address + ".\t€" + balance);		
+  	}
+	
+	// Don't need to override equals()
+	// Account equals is sufficient
+	
+	public void read()
+	{
+		Scanner ki = new Scanner(System.in);
+		   System.out.println("ENTER JOINT ACCOUNT DETAILS ==>");
+		   System.out.print("Title 1 : ");String t1=ki.nextLine();
+		   System.out.print("First Name : ");String fN1=ki.nextLine();
+		   System.out.print("Last Name : ");String sn1=ki.nextLine();
+		   System.out.print("Title 2 : ");String t2=ki.nextLine();
+		   System.out.print("First Name : ");String fN2=ki.nextLine();
+		   System.out.print("Last Name : ");String sn2=ki.nextLine();
+		   System.out.print("Address : ");address=ki.nextLine();
+		   System.out.print("Balance : ");balance=ki.nextDouble();
+		   System.out.print("Day : ");int day=ki.nextInt();
+		   System.out.print("Month : ");int month=ki.nextInt();
+		   System.out.print("Year : ");int year=ki.nextInt();
+		   
+	}
+	
+	// get() and set() methods for each Instance Variable
+  	public Name getNameB(){
+		return nameB;
+	}
+  	public void setNameB(Name nameBIn){
+		nameB = nameBIn;
+	}
+}
