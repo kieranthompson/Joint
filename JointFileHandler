@@ -1,0 +1,122 @@
+package ie.lyit.bank;
+
+import ie.lyit.bank.Account;
+import ie.lyit.bank.Joint;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class JointFileHandler {
+
+	private ArrayList<Joint> accounts;
+	
+	public JointFileHandler()
+	{
+		accounts = new ArrayList<Joint>();
+	}
+	
+	public void add()
+	{
+		Joint account = new Joint();
+		account.read();
+		accounts.add(account);
+	}
+	
+	public Joint view(){
+		Scanner keyboard = new Scanner(System.in);		
+
+		// Read the number of the Joint Account to be viewed from the user
+		System.out.println("ENTER NUMBER OF ACCOUNT : ");
+		int accToView=keyboard.nextInt();
+	
+		// for every Joint object in accounts
+	    for(Joint tmpAcc:accounts){
+		   // if it's number equals the number of the bookToView
+		   if(tmpAcc.getAccountNo() == accToView){
+		      // display it
+			  System.out.println(tmpAcc);
+			  return tmpAcc;
+		   }
+		   }
+	    //If no matching account number is found
+		return null;
+		}
+	    
+	public void list(){
+		// for every Book object in books
+      for(Joint tmpAcc:accounts)
+			// display it
+			System.out.println(tmpAcc);
+	}
+	
+	public void edit(){	
+		// Call view() to find, display, & return the book to edit
+		Joint tempAcc = view();
+		// If the book != null, i.e. it was found then...
+	    if(tempAcc != null){
+		   // get it's index
+		   int index=accounts.indexOf(tempAcc);
+		   // read in a new book and...
+		   tempAcc.read();
+		   // reset the object in books
+		   accounts.set(index, tempAcc);
+	    }
+	}
+	
+	public void delete(){	
+		// Call view() to find, display, & return the book to delete
+		Joint tempAcc = view();
+		// If the book != null, i.e. it was found then...
+	    if(tempAcc != null)
+		   // ...remove it from books
+	       accounts.remove(tempAcc);
+	}
+	
+	public void writeRecordsToFile()
+	{
+		final String FILENAME = "jointAccs.bin";
+	try{	
+		FileOutputStream fileStream= new FileOutputStream(FILENAME);
+		
+		ObjectOutputStream os = new ObjectOutputStream(fileStream);
+		
+		os.writeObject(accounts);
+		
+		os.close();
+		}
+	catch(FileNotFoundException fNFE)
+		{
+			System.out.println("Cannot create file to store Account Details. ");
+		}
+	catch(Exception e)
+		{
+			System.out.println(e.getMessage());
+		}
+	}
+	
+	public void readRecordsFromFile()
+	{
+		final String FILENAME = "jointAccs.bin";
+	try{	
+		FileInputStream fis = new FileInputStream(FILENAME);
+		
+		ObjectInputStream is = new ObjectInputStream(fis);
+		
+		accounts = (ArrayList<Joint>)is.readObject();
+		
+		is.close();
+		}
+	catch(FileNotFoundException fNFE)
+	{
+		System.out.println("Cannot create file to store Account details. ");
+	}
+catch(Exception e)
+	{
+		System.out.println(e.getMessage());
+	}
+	}
+}
