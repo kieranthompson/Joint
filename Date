@@ -1,0 +1,62 @@
+package ie.lyit.bank;
+
+public class Date {
+	private int day;
+	private int month;
+	private int year;
+
+	public Date(){
+	   day=month=year=0;
+	}
+
+	public Date(int d, int m, int y){
+		this.day=d;
+		this.month=m;
+		this.year=y;
+	}
+
+	@Override
+   public String toString(){
+		return (day + "/" + month + "/" + year);
+	}
+	
+	@Override
+   public boolean equals(Object o){
+		if(o == null) 
+         return false;
+	
+		if (this == o)
+			return true;
+         
+		if(!(o instanceof Date))
+			return false;
+		else
+		{
+			Date other = (Date)o;
+			
+			return (this.day == other.day) &&
+					 (this.month == other.month) &&
+					 (this.year == other.year);
+		}
+	}
+	
+	public int getDay(){
+		return day;
+	}
+	public int getMonth(){
+		return month;
+	}
+	public int getYear(){
+		return year;
+	}
+
+	public void setDay(int setDayTo){
+		day=setDayTo;
+	}
+	public void setMonth(int setMonthTo){
+		month=setMonthTo;
+	}
+	public void setYear(int setYearTo){
+		year=setYearTo;
+	}
+}
